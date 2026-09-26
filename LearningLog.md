@@ -16,5 +16,9 @@ for eg: let name: string = "John";
         let isActive: boolean = true;
 2. Interfaces: An interface describes the structure of an object.
 3. Unions: When a value can have more than one type.
+4. Optional fields: (?) Can exist or not needed.
+5. Generics: Lets you create reusable code while preserving the type of the data you're working with.
+6. Strict mode: Does not let uncertain or unsafe code pass.
+
 
 
