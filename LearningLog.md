@@ -20,5 +20,10 @@ for eg: let name: string = "John";
 5. Generics: Lets you create reusable code while preserving the type of the data you're working with.
 6. Strict mode: Does not let uncertain or unsafe code pass.
 
+Day 4 - Browser Tools
+1. Elements: Lets you inspect the HTML currently rendered in the browser. Changes made directly in DevTools are Temporary.
+2. Console: The Console is where you can: see JavaScript errors, see warnings.
+3. Network: Lets you see communication between your browser and external resources, particularly API requests.
+
 
 
