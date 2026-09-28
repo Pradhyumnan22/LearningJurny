@@ -25,5 +25,62 @@ Day 4 - Browser Tools
 2. Console: The Console is where you can: see JavaScript errors, see warnings.
 3. Network: Lets you see communication between your browser and external resources, particularly API requests.
 
+Day 5 - Vitests
+1. Vitest is a testing framework for JavaScript and TypeScript.
+2. Sample Test with edge cases:
+Code:
+export function findLargest(numbers: number[]): number | null {
+    if (numbers.length === 0) {
+        return null;
+    }
+
+    let largest = numbers[0];
+
+    for (const number of numbers) {
+        if (number > largest) {
+            largest = number;
+        }
+    }
+
+    return largest;
+}
+Test: 
+import { describe, it, expect } from "vitest";
+import { findLargest } from "./functions";
+
+describe("findLargest", () => {
+
+    // Normal case
+    it("finds the largest number", () => {
+        expect(findLargest([10, 20, 5, 30, 15])).toBe(30);
+    });
+
+    // Single element
+    it("handles an array with one number", () => {
+        expect(findLargest([7])).toBe(7);
+    });
+
+    // Negative numbers
+    it("handles negative numbers", () => {
+        expect(findLargest([-10, -5, -20])).toBe(-5);
+    });
+
+    // All numbers are the same
+    it("handles duplicate numbers", () => {
+        expect(findLargest([5, 5, 5, 5])).toBe(5);
+    });
+
+    // Zero
+    it("handles zero", () => {
+        expect(findLargest([0, -5, -10])).toBe(0);
+    });
+
+    // Empty array
+    it("returns null for an empty array", () => {
+        expect(findLargest([])).toBe(null);
+    });
+
+});
+
 
 
