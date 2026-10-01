@@ -9,3 +9,12 @@ Day 1 & Day 2 - SQLBolt
    for eg: Not getting email from an order multiple times.
 6. JOIN: Joining two tables.
 7. 10 queries DONE.
+
+Day 3 - SupaBase + Auth
+1. Supabase: Supabase Auth handles things like:
+      - Sign up
+      - Login
+      - Passwords
+      - Sessions
+      - User identity
+2. 
