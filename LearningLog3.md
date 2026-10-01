@@ -17,4 +17,5 @@ Day 3 - SupaBase + Auth
       - Passwords
       - Sessions
       - User identity
-2. 
+2. Row Level Security (RLS): Which rows is this user allowed to access?
+3. Created Supabase Project. 
