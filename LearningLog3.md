@@ -23,6 +23,8 @@ Day 3 - SupaBase + Auth
 Day 4 & Day 5 - Data Model, SQL Schema, RLS policies, Draw ERD
 1. Designed the Data Model.
 2. Drew the ERD.
+3. SQL Schema Done.
+4. RLS Policies Done.
    
 
 
