@@ -1,0 +1,30 @@
+-- PROFILES
+create table profiles (
+    id uuid primary key references auth.users(id),
+    full_name text not null,
+    role text not null check (role in ('member', 'librarian')),
+    created_at timestamptz default now()
+);
+
+
+-- BOOKS
+create table books (
+    id uuid primary key default gen_random_uuid(),
+    title text not null,
+    author text not null,
+    number_of_copies integer not null,
+    book_value numeric(10,2) not null,
+    created_at timestamptz default now()
+);
+
+
+-- LOANS
+create table loans (
+    id uuid primary key default gen_random_uuid(),
+    book_id uuid not null references books(id),
+    member_id uuid not null references profiles(id),
+    issued_date date not null,
+    due_date date not null,
+    returned_date date,
+    created_at timestamptz default now()
+);

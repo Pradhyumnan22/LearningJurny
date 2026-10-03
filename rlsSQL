@@ -1,0 +1,35 @@
+-- Enable RLS
+alter table profiles enable row level security;
+alter table books enable row level security;
+alter table loans enable row level security;
+
+
+-- PROFILES
+
+create policy "Users can view their profile"
+on profiles
+for select
+to authenticated
+using (
+    id = auth.uid()
+);
+
+
+-- BOOKS
+
+create policy "Users can view books"
+on books
+for select
+to authenticated
+using (true);
+
+
+-- LOANS
+
+create policy "Members can view own loans"
+on loans
+for select
+to authenticated
+using (
+    member_id = auth.uid()
+);
