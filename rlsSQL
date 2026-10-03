@@ -1,7 +1,22 @@
--- Enable RLS
 alter table profiles enable row level security;
 alter table books enable row level security;
 alter table loans enable row level security;
+
+
+-- Check if current user is a librarian
+create or replace function is_librarian()
+returns boolean
+language sql
+security definer
+as $$
+    select exists (
+        select 1
+        from profiles
+        where id = auth.uid()
+        and role = 'librarian'
+    );
+$$;
+
 
 
 -- PROFILES
@@ -24,6 +39,36 @@ to authenticated
 using (true);
 
 
+create policy "Librarians can create books"
+on books
+for insert
+to authenticated
+with check (
+    is_librarian()
+);
+
+
+create policy "Librarians can update books"
+on books
+for update
+to authenticated
+using (
+    is_librarian()
+)
+with check (
+    is_librarian()
+);
+
+
+create policy "Librarians can delete books"
+on books
+for delete
+to authenticated
+using (
+    is_librarian()
+);
+
+
 -- LOANS
 
 create policy "Members can view own loans"
@@ -32,4 +77,43 @@ for select
 to authenticated
 using (
     member_id = auth.uid()
+);
+
+
+create policy "Librarians can view all loans"
+on loans
+for select
+to authenticated
+using (
+    is_librarian()
+);
+
+
+create policy "Librarians can create loans"
+on loans
+for insert
+to authenticated
+with check (
+    is_librarian()
+);
+
+
+create policy "Librarians can update loans"
+on loans
+for update
+to authenticated
+using (
+    is_librarian()
+)
+with check (
+    is_librarian()
+);
+
+
+create policy "Librarians can delete loans"
+on loans
+for delete
+to authenticated
+using (
+    is_librarian()
 );
