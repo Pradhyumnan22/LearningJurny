@@ -19,3 +19,10 @@ Day 3 - SupaBase + Auth
       - User identity
 2. Row Level Security (RLS): Which rows is this user allowed to access?
 3. Created Supabase Project. 
+
+Day 4 & Day 5 - Data Model, SQL Schema, RLS policies, Draw ERD
+1. Designed the Data Model.
+2. Drew the ERD.
+   
+
+
