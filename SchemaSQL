@@ -1,30 +1,57 @@
 -- PROFILES
-create table profiles (
-    id uuid primary key references auth.users(id),
+
+create table public.profiles (
+    id uuid primary key
+        references auth.users(id)
+        on delete cascade,
     full_name text not null,
-    role text not null check (role in ('member', 'librarian')),
+    role text not null
+        check (role in ('member', 'librarian')),
     created_at timestamptz default now()
 );
 
-
 -- BOOKS
-create table books (
+
+create table public.books (
     id uuid primary key default gen_random_uuid(),
     title text not null,
     author text not null,
     number_of_copies integer not null,
-    book_value numeric(10,2) not null,
-    created_at timestamptz default now()
+    book_value_paise integer not null,
+    created_at timestamptz default now(),
+    constraint books_copies_non_negative
+        check (number_of_copies >= 0),
+    constraint books_value_non_negative
+        check (book_value_paise >= 0)
 );
 
-
 -- LOANS
-create table loans (
+
+create table public.loans (
     id uuid primary key default gen_random_uuid(),
-    book_id uuid not null references books(id),
-    member_id uuid not null references profiles(id),
+    book_id uuid not null
+        references public.books(id)
+        on delete restrict,
+    member_id uuid not null
+        references public.profiles(id)
+        on delete restrict,
     issued_date date not null,
     due_date date not null,
     returned_date date,
-    created_at timestamptz default now()
+    created_at timestamptz default now(),
+    constraint loans_due_after_issue
+        check (due_date >= issued_date),
+    constraint loans_returned_after_issue
+        check (
+            returned_date is null
+            or returned_date >= issued_date
+        )
 );
+
+
+-- INDEXES
+
+create index loans_member_id_idx
+    on public.loans(member_id);
+create index loans_book_id_idx
+    on public.loans(book_id);
