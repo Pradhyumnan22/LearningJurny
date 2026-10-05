@@ -1,28 +1,39 @@
-alter table profiles enable row level security;
-alter table books enable row level security;
-alter table loans enable row level security;
+-- ENABLE RLS
+
+alter table public.profiles enable row level security;
+alter table public.books enable row level security;
+alter table public.loans enable row level security;
 
 
--- Check if current user is a librarian
-create or replace function is_librarian()
+-- LIBRARIAN CHECK
+
+create or replace function public.is_librarian()
 returns boolean
 language sql
 security definer
+stable
+set search_path = ''
 as $$
     select exists (
         select 1
-        from profiles
+        from public.profiles
         where id = auth.uid()
-        and role = 'librarian'
+          and role = 'librarian'
     );
 $$;
 
 
+revoke execute on function public.is_librarian()
+from public;
+
+grant execute on function public.is_librarian()
+to authenticated;
+
 
 -- PROFILES
 
-create policy "Users can view their profile"
-on profiles
+create policy "Users can view their own profile"
+on public.profiles
 for select
 to authenticated
 using (
@@ -30,49 +41,58 @@ using (
 );
 
 
+create policy "Librarians can view all profiles"
+on public.profiles
+for select
+to authenticated
+using (
+    public.is_librarian()
+);
+
+
 -- BOOKS
 
-create policy "Users can view books"
-on books
+create policy "Authenticated users can view books"
+on public.books
 for select
 to authenticated
 using (true);
 
 
 create policy "Librarians can create books"
-on books
+on public.books
 for insert
 to authenticated
 with check (
-    is_librarian()
+    public.is_librarian()
 );
 
 
 create policy "Librarians can update books"
-on books
+on public.books
 for update
 to authenticated
 using (
-    is_librarian()
+    public.is_librarian()
 )
 with check (
-    is_librarian()
+    public.is_librarian()
 );
 
 
 create policy "Librarians can delete books"
-on books
+on public.books
 for delete
 to authenticated
 using (
-    is_librarian()
+    public.is_librarian()
 );
 
 
 -- LOANS
 
-create policy "Members can view own loans"
-on loans
+create policy "Members can view their own loans"
+on public.loans
 for select
 to authenticated
 using (
@@ -81,39 +101,39 @@ using (
 
 
 create policy "Librarians can view all loans"
-on loans
+on public.loans
 for select
 to authenticated
 using (
-    is_librarian()
+    public.is_librarian()
 );
 
 
 create policy "Librarians can create loans"
-on loans
+on public.loans
 for insert
 to authenticated
 with check (
-    is_librarian()
+    public.is_librarian()
 );
 
 
 create policy "Librarians can update loans"
-on loans
+on public.loans
 for update
 to authenticated
 using (
-    is_librarian()
+    public.is_librarian()
 )
 with check (
-    is_librarian()
+    public.is_librarian()
 );
 
 
 create policy "Librarians can delete loans"
-on loans
+on public.loans
 for delete
 to authenticated
 using (
-    is_librarian()
+    public.is_librarian()
 );
