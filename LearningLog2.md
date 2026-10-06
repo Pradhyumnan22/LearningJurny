@@ -1,87 +1,82 @@
--- Week 2 Log --
+Week 2 Log
 
-Day 1 & 2 - JavaScript Fundamentals
-1. Map(): Creates a new array by changing every element of an existing array.
-2. filter(): Creates a new array containing only the elements that satisfy a condition. 
-3. reduce(): Takes multiple values and reduces them into one result.
-4. Promises: Represents a value that will be available later.
-5. async/await: A cleaner way to work with Promises.
-6. Destructuring: Lets you extract values from objects or arrays easily.
-7. Modules: Lets you split JavaScript code into separate files and share functionality between them.
+Day 1 & 2 — JavaScript Fundamentals
 
-Day 3 - TypeScript
-1. Types: A type tells TypeScript what kind of value a variable can contain.
-for eg: let name: string = "John";
-        let age: number = 21;
-        let isActive: boolean = true;
-2. Interfaces: An interface describes the structure of an object.
-3. Unions: When a value can have more than one type.
-4. Optional fields: (?) Can exist or not needed.
-5. Generics: Lets you create reusable code while preserving the type of the data you're working with.
-6. Strict mode: Does not let uncertain or unsafe code pass.
+What I did
+- Practiced map(), filter(), and reduce().
+- Learned Promises and async/await.
+- Practiced destructuring and modules.
 
-Day 4 - Browser Tools
-1. Elements: Lets you inspect the HTML currently rendered in the browser. Changes made directly in DevTools are Temporary.
-2. Console: The Console is where you can: see JavaScript errors, see warnings.
-3. Network: Lets you see communication between your browser and external resources, particularly API requests.
+What I understood
+- map() transforms array values.
+- filter() selects values based on a condition.
+- reduce() combines values into one result.
+- Promises and async/await are used for asynchronous operations.
+- Modules help split code into separate files.
 
-Day 5 - Vitests
-1. Vitest is a testing framework for JavaScript and TypeScript.
-2. Sample Test with edge cases:
-Code:
-export function findLargest(numbers: number[]): number | null {
-    if (numbers.length === 0) {
-        return null;
-    }
+What I didn't understand
+- I was initially confused about when to use reduce().
+- Async code and Promises needed more practice.
 
-    let largest = numbers[0];
+What AI got wrong
+- Some explanations were too simplified, so I had to verify them by testing the code.
 
-    for (const number of numbers) {
-        if (number > largest) {
-            largest = number;
-        }
-    }
+---
 
-    return largest;
-}
-Test: 
-import { describe, it, expect } from "vitest";
-import { findLargest } from "./functions";
+Day 3 — TypeScript
 
-describe("findLargest", () => {
+What I did
+- Learned types, interfaces, unions, optional fields, and generics.
+- Practiced strict mode.
 
-    // Normal case
-    it("finds the largest number", () => {
-        expect(findLargest([10, 20, 5, 30, 15])).toBe(30);
-    });
+What I understood
+- Types define what values are allowed.
+- Interfaces define object structures.
+- Unions allow multiple possible types.
+- Generics help create reusable type-safe code.
 
-    // Single element
-    it("handles an array with one number", () => {
-        expect(findLargest([7])).toBe(7);
-    });
+What I didn't understand
+- Generics and the difference between interfaces and types were initially confusing.
 
-    // Negative numbers
-    it("handles negative numbers", () => {
-        expect(findLargest([-10, -5, -20])).toBe(-5);
-    });
+What AI got wrong
+- Some explanations made TypeScript sound like runtime validation, which it is not by itself.
 
-    // All numbers are the same
-    it("handles duplicate numbers", () => {
-        expect(findLargest([5, 5, 5, 5])).toBe(5);
-    });
+---
 
-    // Zero
-    it("handles zero", () => {
-        expect(findLargest([0, -5, -10])).toBe(0);
-    });
+Day 4 — Browser Tools
 
-    // Empty array
-    it("returns null for an empty array", () => {
-        expect(findLargest([])).toBe(null);
-    });
+What I did
+- Practiced using Elements, Console, and Network in DevTools.
 
-});
+What I understood
+- Elements helps inspect HTML.
+- Console helps find JavaScript errors.
+- Network helps inspect API requests and responses.
+- Changes made in DevTools are temporary.
 
+What I didn't understand
+- Reading and debugging Network requests was initially difficult.
 
+What AI got wrong
+- Some explanations were too general and did not show the practical debugging process.
 
+---
 
+Day 5 — Vitest
+
+What I did
+- Learned the basics of Vitest.
+- Created a findLargest() function.
+- Wrote tests for normal cases and edge cases.
+
+What I understood
+- describe() groups tests.
+- it() creates a test.
+- expect() checks the result.
+- Edge cases are important for finding bugs.
+
+What I didn't understand
+- I needed more practice deciding which edge cases to test.
+
+What AI got wrong
+- Some AI-generated tests needed to be verified instead of being accepted directly.
